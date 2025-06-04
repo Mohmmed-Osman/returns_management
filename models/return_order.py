@@ -1,3 +1,4 @@
+import requests.utils
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
@@ -104,5 +105,13 @@ class ReturnOrder(models.Model):
         return super(ReturnOrder, self).unlink()
 
     def action_done(self):
-        print ('Done......')
+        for rec in self:
+            if rec.picking_id and rec.credit_note_id:
+                rec.state = 'done'
 
+    @api.model
+    def write(self, vals):
+        for record in self:
+            if record.state == 'done':
+                raise UserError("لا يمكنك تعديل أمر مرتجع مغلق (Done).")
+        return super(ReturnOrder, self).write(vals)

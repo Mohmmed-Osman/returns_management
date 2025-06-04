@@ -34,4 +34,3 @@ class ReturnOrderLine(models.Model):
         for rec in self:
             rec.invoiced_qty = 100
 
-
