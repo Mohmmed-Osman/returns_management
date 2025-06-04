@@ -1,0 +1,6 @@
+<odoo>
+<!--    <record id="group_return_manager" model="res.groups">-->
+<!--        <field name="name">Return Manager</field>-->
+<!--        <field name="category_id" ref="base.module_category_operations"/>-->
+<!--    </record>-->
+</odoo>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View لبنود المرتجعات -->
+    <record id="view_return_order_line_tree" model="ir.ui.view">
+        <field name="name">return.order.line.list</field>
+        <field name="model">return.order.line</field>
+        <field name="arch" type="xml">
+            <list  editable="bottom">
+                <field name="product_id" widget="many2one_quick_entry"/>
+                <field name="quantity" string="الكمية المطلوبة"/>
+                <field name="delivered_qty" string="الكمية المستلمة" readonly="1"/>
+                <field name="invoiced_qty" string="الكمية المفوترة" readonly="1"/>
+                <field name="price_unit" string="سعر الوحدة"/>
+                <field name="reason" string="سبب الإرجاع"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View لبنود المرتجعات -->
+    <record id="view_return_order_line_form" model="ir.ui.view">
+        <field name="name">return.order.line.form</field>
+        <field name="model">return.order.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="product_id" widget="many2one_quick_entry"/>
+                            <field name="quantity"/>
+                            <field name="delivered_qty" readonly="1"/>
+                            <field name="invoiced_qty" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="price_unit"/>
+                            <field name="reason"/>
+                            <field name="return_id" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <!-- تبويب حركات المخزون -->
+                    <notebook>
+                        <page string="حركات المخزون" >
+                            <field name="move_id">
+                                <tree>
+                                    <field name="product_id"/>
+                                    <field name="delivered_qty" string="الكمية المنفذة"/>
+                                    <field name="state" string="الحالة"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <!-- تبويب الفواتير -->
+                        <page string="الفواتير" >
+                            <field name="invoice_line_ids">
+                                <tree>
+                                    <field name="move_id" string="رقم الفاتورة"/>
+                                    <field name="quantity" string="الكمية"/>
+                                    <field name="price_unit" string="السعر"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+<!--    &lt;!&ndash; Action لعرض بنود المرتجعات &ndash;&gt;-->
+<!--    <record id="action_return_order_line" model="ir.actions.act_window">-->
+<!--        <field name="name">بنود المرتجعات</field>-->
+<!--        <field name="res_model">return.order.line</field>-->
+<!--        <field name="view_mode">list,form</field>-->
+<!--    </record>-->
+
+<!--    &lt;!&ndash; قائمة عرض جميع البنود &ndash;&gt;-->
+<!--    <menuitem id="menu_return_order_line_all"-->
+<!--              name = "All Return"-->
+<!--              parent="menu_return_root"-->
+<!--              action="action_return_order_line"/>-->
+</odoo>
